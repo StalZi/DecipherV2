@@ -16,14 +16,21 @@ class ContentFrame(CTkFrame):
     def frame_destroy(self):
         for child in self.winfo_children()[1:]:
             child.destroy()
+    
+    def decipher_button_state_handler(self, locale:dict):
+        if self.language_optionmenu_var.get() != locale['language_initial_value'] and self.rot_optionmenu_var.get() != locale['rot_initial_value']:
+            self.decipher_button.configure(state='normal')
+        else:
+            self.decipher_button.configure(state='disabled')
 
     def caesar_pick(self, locale:dict, input_entry, output_entry):
         if self.picked == 0:
             return
         self.frame_destroy()
+        self.decipher_button_state_handler(locale['initial_values'])
 
-        self.language_options: CTkOptionMenu = CTkOptionMenu(self, values=[value for value in locale['language_dropdown'].values()], variable=self.language_optionmenu_var)
-        self.rot_options: CTkOptionMenu = CTkOptionMenu(self, values=[value for value in locale['rot_dropdown'].values()], variable=self.rot_optionmenu_var)
+        self.language_options: CTkOptionMenu = CTkOptionMenu(self, values=[value for value in locale['language_dropdown'].values()], variable=self.language_optionmenu_var, command=lambda x: self.decipher_button_state_handler(locale['initial_values']))
+        self.rot_options: CTkOptionMenu = CTkOptionMenu(self, values=[value for value in locale['rot_dropdown'].values()], variable=self.rot_optionmenu_var, command=lambda x: self.decipher_button_state_handler(locale['initial_values']))
 
         self.language_options.grid(row=1, column=0, padx=10, pady=20)
         self.rot_options.grid(row=2, column=0, padx=10, pady=20)
@@ -32,10 +39,13 @@ class ContentFrame(CTkFrame):
 
         self.picked = 0
 
-    def vigenere_pick(self, locale:dict, entry):
+    def vigenere_pick(self, locale:dict, input_entry, output_entry):
         if self.picked == 1:
             return
         self.frame_destroy()
+        self.decipher_button_state_handler(locale['initial_values'])
+
+        self.decipher_button.configure(command=None) # for now
 
 
         self.picked = 1
