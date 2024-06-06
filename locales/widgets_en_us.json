@@ -1,0 +1,40 @@
+{
+
+    "first_frame_buttons": {
+
+        "ciphers_button":"Ciphers",
+        "alphabets_button":"Alphabets"
+    },
+
+    "upper_frame_buttons1": {
+
+        "caesar_button":"Caesar",
+        "vigenere_button":"Vigenere",
+        "hill_button":"Hill"
+    },
+
+    "content_frame_buttons": {
+
+        "decipher_button":"Decipher",
+        "initial_values":{
+            "language_initial_value":"Language",
+            "rot_initial_value":"ROT"
+        },
+        
+        "language_dropdown":{
+            "all_languages":"All",
+            "russian":"Russian",
+            "english":"English"
+        },
+        "rot_dropdown":{
+            "rot_all":"All",
+            "rot1":"1"
+        }
+    },
+
+    "upper_frame_buttons2": {
+
+        "wingdings_button":"Wingdings"
+    }
+
+}

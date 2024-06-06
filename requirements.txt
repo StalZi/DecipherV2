@@ -1,0 +1,4 @@
+customtkinter==5.2.2
+customtkinter_pyinstaller==5.1.2
+egcd==1.0.0
+numpy==1.26.4
