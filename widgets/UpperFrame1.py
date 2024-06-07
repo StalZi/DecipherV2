@@ -10,7 +10,7 @@ class UpperFrame1(CTkFrame):
         column: int = 1
         id: int = 0
         for button_name in locale['first_frame_buttons'].values():
-            UpperFrameButton1(self, 1, column, button_name, font, frame_to_change_buttons, frame_to_change_widgets_in, input_entry, output_entry, locale, id)
+            UpperFrameButton1(self, parent, 1, column, button_name, font, frame_to_change_buttons, frame_to_change_widgets_in, input_entry, output_entry, locale, id)
             #self.columnconfigure(index=column-1, weight=5)
             #self.columnconfigure(index=column, weight=1)
             #self.columnconfigure(index=column+1, weight=5)

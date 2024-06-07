@@ -6,7 +6,9 @@ class MainEntry2(CTkTextbox):
 
         self.configure(width=width, height=height, state='disabled')
 
-    def output(self, output:str|list, rot:bool = False):
+    def output(self, decipher_button, output:str|list, rot:bool = False):
+        if decipher_button.cget('state') == 'disabled':
+            return
         self.configure(state='normal')
         self.delete('0.0', 'end')
 

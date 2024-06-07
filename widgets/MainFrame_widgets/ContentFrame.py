@@ -46,7 +46,7 @@ class ContentFrame(CTkFrame):
         self.decipher_button_state_handler(locale['initial_values'])
 
 
-    def caesar_pick(self, locale:dict, input_entry, output_entry):
+    def caesar_pick(self, locale:dict, window_to_bind_button_to, input_entry, output_entry):
         if self.picked == 0:
             return
         self.frame_destroy()
@@ -57,8 +57,9 @@ class ContentFrame(CTkFrame):
 
         self.language_options.grid(row=1, column=0, padx=10, pady=20)
         self.rot_options.grid(row=2, column=0, padx=10, pady=20)
-
-        self.decipher_button.configure(command=lambda: output_entry.output(caesar_dec(locale, self.language_optionmenu_var.get(), input_entry.get('0.0', 'end'), self.rot_optionmenu_var.get()), True))
+        self.button_callback_function = lambda x: output_entry.output(self.decipher_button, caesar_dec(locale, self.language_optionmenu_var.get(), input_entry.get('0.0', 'end'), self.rot_optionmenu_var.get()), True)
+        self.decipher_button.configure(command=self.button_callback_function)
+        window_to_bind_button_to.bind('<Return>', self.button_callback_function)
 
         self.picked = 0
 

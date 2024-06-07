@@ -22,7 +22,7 @@ class UpperFrame2(CTkFrame):
             child.destroy()
 
 
-    def ciphers_pick(self, frame_to_change_in, input_entry, output_entry, locale:dict, font:CTkFont):
+    def ciphers_pick(self, window_to_bind_button_to, frame_to_change_in, input_entry, output_entry, locale:dict, font:CTkFont):
         if self.picked == 0:
             return
         print(self.picked)
@@ -31,7 +31,7 @@ class UpperFrame2(CTkFrame):
         column: int = 1
         id2: int = 0
         for button_name in locale['upper_frame_buttons1'].values():
-            UpperFrameButton2(self, frame_to_change_in, input_entry, output_entry, locale, 1, column, button_name, font, id2)
+            UpperFrameButton2(self, window_to_bind_button_to, frame_to_change_in, input_entry, output_entry, locale, 1, column, button_name, font, id2)
             #self.columnconfigure(index=column-1, weight=4)
             #self.columnconfigure(index=column, weight=1)
             #self.columnconfigure(index=column+1, weight=4)
@@ -40,7 +40,7 @@ class UpperFrame2(CTkFrame):
         
         self.picked = 0
 
-    def alphabets_pick(self, frame_to_change_in, input_entry, output_entry, locale:dict, font:CTkFont):
+    def alphabets_pick(self, window_to_bind_button_to, frame_to_change_in, input_entry, output_entry, locale:dict, font:CTkFont):
         if self.picked == 1:
             return
         print(self.picked)
@@ -49,7 +49,7 @@ class UpperFrame2(CTkFrame):
         column: int = 1
         id2: int = 0
         for button_name in locale['upper_frame_buttons2'].values():
-            UpperFrameButton2(self, frame_to_change_in, input_entry, output_entry, locale, 1, column, button_name, font, id2)
+            UpperFrameButton2(self, window_to_bind_button_to, frame_to_change_in, input_entry, output_entry, locale, 1, column, button_name, font, id2)
             #self.columnconfigure(index=column-1, weight=4)
             #self.columnconfigure(index=column, weight=1)
             #self.columnconfigure(index=column+1, weight=4)
