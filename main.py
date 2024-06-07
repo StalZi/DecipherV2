@@ -6,6 +6,13 @@ with open("locales/widgets_en_us.json", "r") as read_file:
     locale = json.load(read_file)
 
 VERSION: str = '2.0'
+
+UPPER_FRAME1_COLOR: str = '#000000'
+UPPER_FRAME2_COLOR: str = '#424242'
+MAIN_FRAME_COLOR: str = '#1a0500'
+DECIPHER_BUTTON_FG_COLOR: str = '#253322'
+DECIPHER_BUTTON_HOVER_COLOR: str = '#26a80c'
+
 ctk.set_appearance_mode('dark')
 
 class App(ctk.CTk):
@@ -20,11 +27,11 @@ class App(ctk.CTk):
         #self.rowconfigure(index=1, weight=1)
         self.rowconfigure(index=2, weight=1)
 
-        default_font: ctk.CTkFont = ctk.CTkFont('Verdana', 24, 'bold')
+        DEFAULT_FONT: ctk.CTkFont = ctk.CTkFont('Verdana', 24, 'bold')
 
-        self.main_frame: MainFrame = MainFrame(self, '#1a0500', 300, locale['content_frame_buttons'], default_font)
-        self.upper_frame2: UpperFrame2 = UpperFrame2(self, '#424242', 45)
-        self.upper_frame1: UpperFrame1 = UpperFrame1(self, self.upper_frame2, self.main_frame.content_frame, self.main_frame.main_entry_box, self.main_frame.main_entry_box2, locale, '#000000', 45, default_font)
+        self.main_frame: MainFrame = MainFrame(self, MAIN_FRAME_COLOR, 300, locale['content_frame_buttons'], DEFAULT_FONT, DECIPHER_BUTTON_FG_COLOR, DECIPHER_BUTTON_HOVER_COLOR)
+        self.upper_frame2: UpperFrame2 = UpperFrame2(self, UPPER_FRAME2_COLOR, 45)
+        self.upper_frame1: UpperFrame1 = UpperFrame1(self, self.upper_frame2, self.main_frame.content_frame, self.main_frame.main_entry_box, self.main_frame.main_entry_box2, locale, UPPER_FRAME1_COLOR, 45, DEFAULT_FONT)
 
         self.upper_frame1.grid(row=0, column=0, sticky='new')
         self.upper_frame2.grid(row=1, column=0, sticky='new')

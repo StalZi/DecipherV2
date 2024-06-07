@@ -3,14 +3,14 @@ from widgets.MainFrame_widgets.ContentFrame_widgets import *
 from ciphers import *
 
 class ContentFrame(CTkFrame):
-    def __init__(self, parent, locale:dict, font:CTkFont):
+    def __init__(self, parent, locale:dict, font:CTkFont, decipher_button_fg_color:str, decipher_button_hover_color:str):
         super().__init__(parent)
         self.locale: dict = locale
         self.picked: int = -1
         self.language_optionmenu_var: StringVar = StringVar(value=locale['initial_values']['language_initial_value'])
         self.rot_optionmenu_var: StringVar = StringVar(value=locale['initial_values']['rot_initial_value'])
 
-        self.decipher_button: DecipherButton = DecipherButton(self, locale['decipher_button'], font, '#253322', '#26a80c')
+        self.decipher_button: DecipherButton = DecipherButton(self, locale['decipher_button'], font, decipher_button_fg_color, decipher_button_hover_color)
         self.decipher_button.grid(row=0, column=0, sticky='nsew', padx=10, pady=20)
 
     def frame_destroy(self):
@@ -30,11 +30,13 @@ class ContentFrame(CTkFrame):
         if language == language_dropdown_values.get('all_languages'):
             values: list = [str(rot) for rot in range(1, int(locale['rot_dropdown']['rot_all_languages']) + 1)]
             self.rot_options.configure(state='normal', values=values)
+
         elif language == language_dropdown_values.get('english'):
             values: list = [str(rot) for rot in range(1, int(locale['rot_dropdown']['rot_english']) + 1)]
             if not self.rot_optionmenu_var.get() in values:
                 self.rot_optionmenu_var.set(value=locale['initial_values']['rot_initial_value'])
             self.rot_options.configure(state='normal', values=values)
+
         elif language == language_dropdown_values.get('russian'):
             values: list = [str(rot) for rot in range(1, int(locale['rot_dropdown']['rot_russian']) + 1)]
             if not self.rot_optionmenu_var.get() in values:
