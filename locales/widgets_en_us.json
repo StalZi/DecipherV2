@@ -16,6 +16,7 @@
     "content_frame_buttons": {
 
         "decipher_button":"Decipher",
+        "key_entry_placeholder":"Key",
         "initial_values":{
             "language_initial_value":"Language",
             "rot_initial_value":"ROT"

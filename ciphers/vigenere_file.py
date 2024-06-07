@@ -1,15 +1,17 @@
+import string
+
 alphabetRU = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
 alphabetEN = "abcdefghijklmnopqrstuvwxyz"
 
-l2iRU = dict(zip(alphabetRU, range(len(alphabetRU))))
-l2iEN = dict(zip(alphabetEN, range(len(alphabetEN))))
+l2iRU: dict = dict(zip(alphabetRU, range(len(alphabetRU))))
+l2iEN: dict = dict(zip(alphabetEN, range(len(alphabetEN))))
 
-i2lRU = dict(zip(range(len(alphabetRU)), alphabetRU))
-i2lEN = dict(zip(range(len(alphabetEN)), alphabetEN))
+i2lRU: dict = dict(zip(range(len(alphabetRU)), alphabetRU))
+i2lEN: dict = dict(zip(range(len(alphabetEN)), alphabetEN))
 
 
-def vigenereRU(split_encrypted, key):
-    decrypted = ""
+def vigenereRU(split_encrypted, key) -> str:
+    decrypted: str = ""
 
     for each_split in split_encrypted:
 
@@ -24,8 +26,8 @@ def vigenereRU(split_encrypted, key):
 
     return decrypted
 
-def vigenereEN(split_encrypted, key):
-    decrypted = ""
+def vigenereEN(split_encrypted, key) -> str:
+    decrypted: str = ""
 
     for each_split in split_encrypted:
 
@@ -40,68 +42,33 @@ def vigenereEN(split_encrypted, key):
 
     return decrypted
 
-def vigenere_dec(language:str, value:str, key:str, rot:str) -> str:
-
-    try:
-        rot = int(rot)
-    except:
-        pass
+def vigenere_dec(locale:dict, language:str, value:str, key:str) -> str:
 
     value = value.lower()
+
+    whitespace_indices: list = []
+    i = 0
+    for index, character in enumerate(value):
+        if character in string.whitespace:
+            whitespace_indices.append(index - i)
+            i += 1
+
+    value = ''.join(value.split())
+
+    split_encrypted: list = [value[i : i + len(key)] for i in range(0, len(value), len(key))]
+
+    if language == locale['language_dropdown']['english']:
+        d = vigenereEN(split_encrypted, key)
+
+    elif language == locale['language_dropdown']['russian']:
+        d = vigenereRU(split_encrypted, key)
     
-    if rot == 1 or rot == "All":
+    else:
+        return 'JSON failure'
 
-        valueR1 = ""
+    d = list(d)
+    for index, i in enumerate(whitespace_indices):
+        d.insert(index + i, " ")
+    d = ''.join(d)
 
-        for i in range(len(value)):
-
-            if value[i] in alphabetRU:
-                valueR1 += alphabetRU[alphabetRU.find(value[i]) - 1]
-
-            elif value[i] in alphabetRU.upper():
-                valueR1 += alphabetRU.upper()[alphabetRU.upper().find(value[i]) - 1]
-
-            elif value.lower()[i] in alphabetEN:
-                valueR1 += alphabetEN[alphabetEN.find(value.lower()[i]) - 1]
-
-            elif value[i] in alphabetEN.upper():
-                valueR1 += alphabetEN.upper()[alphabetEN.upper().find(value[i]) - 1]
-
-            else:
-                valueR1 += value[i]
-
-        split_encryptedR1 = [valueR1[i : i + len(key)] for i in range(0, len(valueR1), len(key))]
-
-
-
-    split_encrypted = [
-        value[i : i + len(key)] for i in range(0, len(value), len(key))
-    ]
-    
-
-
-    if language == "Русский":
-
-        if rot == 0:
-
-            return vigenereRU(split_encrypted, key)
-        
-        elif rot == 1:
-
-            return vigenereRU(split_encryptedR1, key)
-        
-        else:
-            return [vigenereRU(split_encrypted, key), vigenereRU(split_encryptedR1, key)]
-
-    elif language == "English":
-            
-        if rot == 0:
-
-            return vigenereEN(split_encrypted, key)
-        
-        elif rot == 1:
-
-            return vigenereEN(split_encryptedR1, key)
-        
-        else:
-            return [vigenereEN(split_encrypted, key), vigenereEN(split_encryptedR1, key)]
+    return d
