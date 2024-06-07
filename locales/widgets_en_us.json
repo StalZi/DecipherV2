@@ -28,7 +28,9 @@
         },
         "rot_dropdown":{
             "rot_all":"All",
-            "rot1":"1"
+            "rot_all_languages":"32",
+            "rot_english":"25",
+            "rot_russian":"32"
         }
     },
 
