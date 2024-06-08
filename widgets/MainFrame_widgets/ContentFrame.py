@@ -41,19 +41,19 @@ class ContentFrame(CTkFrame):
 
         if language == language_dropdown_values.get('all_languages'):
             values: list[str] = [str(rot) for rot in range(1, int(locale['rot_dropdown']['rot_all_languages']) + 1)]
-            self.rot_options.configure(state='normal', values=values)
+            self.rot_options.configure(state='normal', values=[locale['rot_dropdown']['rot_all']] + values)
 
         elif language == language_dropdown_values.get('english'):
             values: list[str] = [str(rot) for rot in range(1, int(locale['rot_dropdown']['rot_english']) + 1)]
             if not self.rot_optionmenu_var.get() in values:
                 self.rot_optionmenu_var.set(value=locale['initial_values']['rot_initial_value'])
-            self.rot_options.configure(state='normal', values=values)
+            self.rot_options.configure(state='normal', values=[locale['rot_dropdown']['rot_all']] + values)
 
         elif language == language_dropdown_values.get('russian'):
             values: list[str] = [str(rot) for rot in range(1, int(locale['rot_dropdown']['rot_russian']) + 1)]
             if not self.rot_optionmenu_var.get() in values:
                 self.rot_optionmenu_var.set(value=locale['initial_values']['rot_initial_value'])
-            self.rot_options.configure(state='normal', values=values)
+            self.rot_options.configure(state='normal', values=[locale['rot_dropdown']['rot_all']] + values)
 
 
     def caesar_pick(self, locale:dict, window_to_bind_button_to, input_entry, output_entry):

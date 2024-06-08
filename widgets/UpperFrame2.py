@@ -25,7 +25,7 @@ class UpperFrame2(CTkFrame):
     def ciphers_pick(self, window_to_bind_button_to, frame_to_change_in, input_entry, output_entry, locale:dict, font:CTkFont):
         if self.picked == 0:
             return
-        print(self.picked)
+
         self.frame_destroy()
         
         column: int = 1
@@ -43,7 +43,7 @@ class UpperFrame2(CTkFrame):
     def alphabets_pick(self, window_to_bind_button_to, frame_to_change_in, input_entry, output_entry, locale:dict, font:CTkFont):
         if self.picked == 1:
             return
-        print(self.picked)
+
         self.frame_destroy()
 
         column: int = 1

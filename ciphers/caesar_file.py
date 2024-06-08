@@ -101,7 +101,7 @@ def caesar_dec(locale, language:str, value:str, rot:str) -> str | list[str]:
             for i in range(1, 33):
 
                 resultall.append(caesarALL(value, i))
-            print(resultall)
+
             return resultall
 
         else:
