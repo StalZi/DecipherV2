@@ -6,5 +6,5 @@
 /ciphers/__pycache__
 /dist
 /build
-/DecipherV2 2.0.spec
+/*.spec
 /.vscode

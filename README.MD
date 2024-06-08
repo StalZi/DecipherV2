@@ -7,11 +7,11 @@ You can build the program from source code yourself with **pyinstaller**:
 
 `pip install pyinstaller`
 
-`pyinstaller --noconfirm --windowed -D -n "DecipherV2 2.0" --add-data "locales;locales" --add-data "<YOUR_SITE-PACKAGES_FOLDER_HERE>\customtkinter;customtkinter/" --contents-directory "." main.py`
+`pyinstaller --noconfirm --windowed -D -n "DecipherV2" --add-data "locales;locales" --add-data "<YOUR_SITE-PACKAGES_FOLDER_HERE>\customtkinter;customtkinter/" --contents-directory "." main.py`
 
 Instead of **<YOUR_SITE-PACKAGES_FOLDER_HERE>** you need to put path to your python site-packages folder. You can get it with any **pip show**, for example with customtkinter:
 
 `pip show customtkinter`
 
 ## Install
-Just go to the [releases tab](https://github.com/StalZi/DecipherV2/releases), download the latest release and launch DecipherV2 x.x.exe
+Just go to the [releases tab](https://github.com/StalZi/DecipherV2/releases), download the latest release and launch DecipherV2 x.x.x.exe
