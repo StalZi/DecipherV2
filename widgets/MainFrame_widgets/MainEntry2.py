@@ -6,7 +6,7 @@ class MainEntry2(CTkTextbox):
 
         self.configure(width=width, height=height, state='disabled')
 
-    def output(self, decipher_button, output:str|list, rot:bool = False):
+    def output(self, decipher_button, output:str|list, rot:bool = False, language:bool = False):
         if decipher_button.cget('state') == 'disabled':
             return
         self.configure(state='normal')
@@ -24,7 +24,7 @@ class MainEntry2(CTkTextbox):
                     rot_number += 1
                 final_output: str = ''.join(final_output).rstrip() # type: ignore
             else:
-                final_output: str = ''.join(output).rstrip() # type: ignore
+                final_output: str = '\n'.join(output).rstrip() # type: ignore
 
         self.insert('0.0', final_output) # type: ignore
         self.configure(state='disabled')

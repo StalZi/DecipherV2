@@ -1,4 +1,4 @@
-from customtkinter import CTkFrame, CTkFont, CTkOptionMenu, CTkEntry, StringVar
+from customtkinter import CTkFrame, CTkFont, CTkOptionMenu, CTkEntry, StringVar, CTkCheckBox
 from widgets.MainFrame_widgets.ContentFrame_widgets import *
 from ciphers import *
 
@@ -13,9 +13,11 @@ class ContentFrame(CTkFrame):
 
         self.language_optionmenu_var: StringVar = StringVar(value=locale['initial_values']['language_initial_value'])
         self.rot_optionmenu_var: StringVar = StringVar(value=locale['initial_values']['rot_initial_value'])
+
         self.language_options: CTkOptionMenu = CTkOptionMenu(self, variable=self.language_optionmenu_var)
         self.rot_options: CTkOptionMenu = CTkOptionMenu(self, variable=self.rot_optionmenu_var, state='disabled')
         self.key_entry: CTkEntry = CTkEntry(self, placeholder_text=locale['key_entry_placeholder'])
+        self.checkbox: CTkCheckBox = CTkCheckBox(self)
 
     def frame_destroy(self):
         for child in self.winfo_children()[1:]:
@@ -123,7 +125,7 @@ class ContentFrame(CTkFrame):
 
         self.frame_destroy()
         self.decipher_button_state_handler(locale['initial_values'], False, False)
-        
+
         self.key_entry.grid(row=1, column=0, padx=10, pady=20)
 
         self.button_callback_function = lambda: output_entry.output(self.decipher_button, playfair_dec(input_entry.get('0.0', 'end'), self.key_entry.get()))
@@ -132,3 +134,24 @@ class ContentFrame(CTkFrame):
 
 
         self.picked = 3
+
+    def a1z26_pick(self, locale:dict, window_to_bind_button_to, input_entry, output_entry):
+        if self.picked == 4:
+            return
+
+        self.language_options.configure(values=[value for value in locale['language_dropdown'].values()], command=lambda x: [self.language_dropdown_callback(locale), self.decipher_button_state_handler(locale['initial_values'], True, False)])
+        self.checkbox.configure(text='A1Z56')
+
+        self.frame_destroy()
+        self.language_dropdown_callback(locale)
+        self.decipher_button_state_handler(locale['initial_values'], True, False)
+        
+        self.language_options.grid(row=1, column=0, padx=10, pady=20)
+        self.checkbox.grid(row=2, column=0, padx=10, pady=20)
+
+        self.button_callback_function = lambda: output_entry.output(self.decipher_button, a1z26_dec(locale, self.language_optionmenu_var.get(), input_entry.get('0.0', 'end'), int(self.checkbox.get())))
+        self.decipher_button.configure(command=self.button_callback_function)
+        window_to_bind_button_to.bind('<Return>', self.button_callback_function)
+
+
+        self.picked = 4

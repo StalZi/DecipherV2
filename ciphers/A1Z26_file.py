@@ -1,58 +1,66 @@
 alphabetRU = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
 alphabetEN = "abcdefghijklmnopqrstuvwxyz"
 
-def a1z26RU(value:list[str], x2) -> str:
-    result:str = ""
+def a1z26RU(value:list[str], x2:int) -> str:
+    result: str = ""
 
-    for i in range(len(value)):
-        
-        splitted = value[i].split("-")
+    if x2:
+        function_eval: str = 'alphabetRU[(int(splitted[j]) // 2) - 1]'
+    else:
+        function_eval: str = 'alphabetRU[int(splitted[j]) - 1]'
 
-        if x2 is False:
-            for j in range(len(splitted)):
-            
-                result += alphabetRU[int(splitted[j]) - 1]
-        else:
-            for j in range(len(splitted)):
-            
-               result += alphabetRU[(int(splitted[j]) // 2) - 1]
+    for i in value:
+        splitted = i.split("-")
 
-    return result
+        for j in range(len(splitted)):
+            try:
+                result += eval(function_eval)
+            except ValueError:
+                result += splitted[j]
 
-def a1z26EN(value:list[str], x2) -> str:
-    result:str = ""
-
-    for i in range(len(value)):
-
-        splitted = value[i].split("-")
-
-        if x2 is False:
-            for j in range(len(splitted)):
-            
-                result += alphabetEN[int(splitted[j]) - 1]
-        else:
-            for j in range(len(splitted)):
-            
-               result += alphabetEN[(int(splitted[j]) // 2) - 1]
+        result += ' '
 
     return result
 
+def a1z26EN(value:list[str], x2:int) -> str:
+    result: str = ""
 
-def a1z26_dec(language:str, value:str, x2:bool = False) -> str | list[str] | None:
+    if x2:
+        function_eval: str = 'alphabetEN[(int(splitted[j]) // 2) - 1]'
+    else:
+        function_eval: str = 'alphabetEN[int(splitted[j]) - 1]'
 
-    split_value: list[str] = value.split(" ")
+    for i in value:
+        splitted = i.split('-')
+        print('split 2', splitted)
 
-    if language == "Все, что ниже":
+        for j in range(len(splitted)):
+            try:
+                result += eval(function_eval)
+            except ValueError:
+                result += splitted[j]
+
+        result += ' '
+
+    return result
+
+
+def a1z26_dec(locale:dict, language:str, value:str, x2:int) -> str | list[str]:
+
+    split_value: list[str] = value.rstrip().split(' ')
+
+    print('split 1', split_value)
+
+    if language == locale['language_dropdown']['all_languages']:
         try:
-            return [a1z26EN(split_value, x2), a1z26RU(split_value, x2)]
+            return [f"{locale['language_dropdown']['english']} {a1z26EN(split_value, x2).rstrip()}", f"{locale['language_dropdown']['russian']} {a1z26RU(split_value, x2).rstrip()}"]
         except:
-            return a1z26RU(split_value, x2)
+            return a1z26RU(split_value, x2).rstrip()
 
-    elif language == "Русский":
+    elif language == locale['language_dropdown']['english']:
+        return a1z26EN(split_value, x2).rstrip()
+    
+    elif language == locale['language_dropdown']['russian']:
+        return a1z26RU(split_value, x2).rstrip()
 
-        return a1z26RU(split_value, x2)
-
-
-    elif language == "English":
-
-        return a1z26EN(split_value, x2)
+    return 'JSON failure'
