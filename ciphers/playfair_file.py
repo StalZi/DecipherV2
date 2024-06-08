@@ -1,13 +1,4 @@
-def toLowerCase(plain):
-    # Convert all the characters of a string to lowercase
-    return plain.lower()
-
-
-def removeSpaces(plain):
-    # Remove all spaces in a string
-    # can be extended to remove punctuation
-    return ''.join(plain.split())
-
+from string import whitespace
 
 def generateKeyTable(key):
     # generates the 5x5 key square
@@ -87,8 +78,24 @@ def decrypt(value, keyT):
 
 def playfair_dec(value:str, key:str) -> str:
     # Function to call decrypt
-    key = removeSpaces(toLowerCase(key))
-    value = removeSpaces(toLowerCase(value))
+    value = value.lower()
+
+    whitespace_indices: list = []
+    i = 0
+    for index, character in enumerate(value):
+        if character in whitespace:
+            whitespace_indices.append(index - i)
+            i += 1
+
+    value = ''.join(value.split())
+    key = ''.join(key.lower().split())
     keyT = generateKeyTable(key)
     
-    return decrypt(value, keyT)
+    d = decrypt(value, keyT)
+
+    d = list(d)
+    for index, i in enumerate(whitespace_indices):
+        d.insert(index + i, " ")
+    d = ''.join(d)
+
+    return d

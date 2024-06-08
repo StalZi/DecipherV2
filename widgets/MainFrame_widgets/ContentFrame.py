@@ -21,7 +21,7 @@ class ContentFrame(CTkFrame):
         for child in self.winfo_children()[1:]:
             child.grid_forget()
     
-    def decipher_button_state_handler(self, locale:dict, has_language:bool = False, has_rot:bool = False):
+    def decipher_button_state_handler(self, locale:dict, has_language:bool, has_rot:bool):
         what_to_check: list[bool] = []
 
         if has_language:
@@ -65,6 +65,7 @@ class ContentFrame(CTkFrame):
 
         self.frame_destroy()
         self.language_dropdown_callback(locale)
+        self.decipher_button_state_handler(locale['initial_values'], True, True)
 
         self.language_options.grid(row=1, column=0, padx=10, pady=20)
         self.rot_options.grid(row=2, column=0, padx=10, pady=20)
@@ -79,12 +80,13 @@ class ContentFrame(CTkFrame):
         if self.picked == 1:
             return
 
-        self.language_options.configure(values=[value for value in locale['language_dropdown'].values()][1:], command=lambda x: [self.language_dropdown_callback(locale), self.decipher_button_state_handler(locale['initial_values'], True)])
+        self.language_options.configure(values=[value for value in locale['language_dropdown'].values()][1:], command=lambda x: [self.language_dropdown_callback(locale), self.decipher_button_state_handler(locale['initial_values'], True, False)])
 
         self.frame_destroy()
         self.language_dropdown_callback(locale)
         if self.language_optionmenu_var.get() == locale['language_dropdown']['all_languages']:
             self.language_optionmenu_var.set(locale['initial_values']['language_initial_value'])
+        self.decipher_button_state_handler(locale['initial_values'], True, False)
         
         self.language_options.grid(row=1, column=0, padx=10, pady=20)
         self.key_entry.grid(row=2, column=0, padx=10, pady=20)
@@ -97,13 +99,14 @@ class ContentFrame(CTkFrame):
         self.picked = 1
 
     def atbash_pick(self, locale:dict, window_to_bind_button_to, input_entry, output_entry):
-        if self.picked == 1:
+        if self.picked == 2:
             return
 
-        self.language_options.configure(values=[value for value in locale['language_dropdown'].values()], command=lambda x: [self.language_dropdown_callback(locale), self.decipher_button_state_handler(locale['initial_values'], True)])
+        self.language_options.configure(values=[value for value in locale['language_dropdown'].values()], command=lambda x: [self.language_dropdown_callback(locale), self.decipher_button_state_handler(locale['initial_values'], True, False)])
 
         self.frame_destroy()
         self.language_dropdown_callback(locale)
+        self.decipher_button_state_handler(locale['initial_values'], True, False)
         
         self.language_options.grid(row=1, column=0, padx=10, pady=20)
 
@@ -112,4 +115,20 @@ class ContentFrame(CTkFrame):
         window_to_bind_button_to.bind('<Return>', self.button_callback_function)
 
 
-        self.picked = 1
+        self.picked = 2
+
+    def playfair_pick(self, locale:dict, window_to_bind_button_to, input_entry, output_entry):
+        if self.picked == 3:
+            return
+
+        self.frame_destroy()
+        self.decipher_button_state_handler(locale['initial_values'], False, False)
+        
+        self.key_entry.grid(row=1, column=0, padx=10, pady=20)
+
+        self.button_callback_function = lambda: output_entry.output(self.decipher_button, playfair_dec(input_entry.get('0.0', 'end'), self.key_entry.get()))
+        self.decipher_button.configure(command=self.button_callback_function)
+        window_to_bind_button_to.bind('<Return>', self.button_callback_function)
+
+
+        self.picked = 3

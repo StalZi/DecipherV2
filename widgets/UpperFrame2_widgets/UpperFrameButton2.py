@@ -13,5 +13,7 @@ class UpperFrameButton2(CTkButton):
                 self.configure(command=lambda : frame_to_change_widgets_in.vigenere_pick(locale['content_frame_buttons'], window_to_bind_button_to, input_entry, output_entry))
             case 2:
                 self.configure(command=lambda : frame_to_change_widgets_in.atbash_pick(locale['content_frame_buttons'], window_to_bind_button_to, input_entry, output_entry))
+            case 3:
+                self.configure(command=lambda : frame_to_change_widgets_in.playfair_pick(locale['content_frame_buttons'], window_to_bind_button_to, input_entry, output_entry))
 
         self.grid(row=row, column=column, padx=10, pady=5)

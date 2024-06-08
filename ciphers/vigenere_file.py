@@ -1,4 +1,4 @@
-import string
+from string import whitespace
 
 alphabetRU = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
 alphabetEN = "abcdefghijklmnopqrstuvwxyz"
@@ -49,7 +49,7 @@ def vigenere_dec(locale:dict, language:str, value:str, key:str) -> str:
     whitespace_indices: list = []
     i = 0
     for index, character in enumerate(value):
-        if character in string.whitespace:
+        if character in whitespace:
             whitespace_indices.append(index - i)
             i += 1
 
