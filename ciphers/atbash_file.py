@@ -7,15 +7,18 @@ def atbashALL(value:str) -> str:
     for i in range(len(value)):
 
             if value[i] in alphabetRU:
-
                 result += alphabetRU[len(alphabetRU) - alphabetRU.find(value[i]) - 1]
 
-            elif value[i] in alphabetEN:
+            elif value[i] in alphabetRU.upper():
+                result += alphabetRU.upper()[len(alphabetRU) - alphabetRU.upper().find(value[i]) - 1]
 
+            elif value[i] in alphabetEN:
                 result += alphabetEN[len(alphabetEN) - alphabetEN.find(value[i]) - 1]
 
-            else:
+            elif value[i] in alphabetEN.upper():
+                result += alphabetEN.upper()[len(alphabetEN) - alphabetEN.upper().find(value[i]) - 1]
 
+            else:
                 result += value[i]
 
     return result
@@ -26,11 +29,12 @@ def atbashRU(value:str) -> str:
     for i in range(len(value)):
 
             if value[i] in alphabetRU:
+                result += alphabetRU[len(alphabetRU) - alphabetRU.find(value[i]) - 1]
 
-                result += alphabetRU[len(alphabetRU) - alphabetRU.find(value[i])]
+            elif value[i] in alphabetRU.upper():
+                result += alphabetRU.upper()[len(alphabetRU) - alphabetRU.upper().find(value[i]) - 1]
 
             else:
-
                 result += value[i]
 
     return result
@@ -40,27 +44,30 @@ def atbashEN(value:str) -> str:
 
     for i in range(len(value)):
 
-            if value[i] in alphabetRU:
+            if value[i] in alphabetEN:
+                result += alphabetEN[len(alphabetEN) - alphabetEN.find(value[i]) - 1]
 
-                result += alphabetEN[len(alphabetEN) - alphabetEN.find(value[i])]
+            elif value[i] in alphabetEN.upper():
+                result += alphabetEN.upper()[len(alphabetEN) - alphabetEN.upper().find(value[i]) - 1]
 
             else:
                 result += value[i]
 
     return result
 
-def atbash_dec(language:str, value:str) -> str | None:
+def atbash_dec(locale:dict, language:str, value:str) -> str:
 
-    if language == "Все, что ниже":
+    if language == locale['language_dropdown']['all_languages']:
 
         return atbashALL(value)
 
+    elif language == locale['language_dropdown']['english']:
 
-    elif language == "Русский":
+        return atbashEN(value)
+    
+    elif language == locale['language_dropdown']['russian']:
 
         return atbashRU(value)
 
 
-    elif language == "English":
-
-        return atbashEN(value)
+    return 'JSON failure'

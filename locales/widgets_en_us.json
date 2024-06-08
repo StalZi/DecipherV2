@@ -10,7 +10,13 @@
 
         "caesar_button":"Caesar",
         "vigenere_button":"Vigenere",
-        "hill_button":"Hill"
+        "atbash_button":"Atbash",
+        "playfair_button":"Playfair",
+        "a1z26_button":"A1Z26",
+        "hill_button":"Hill",
+        "rail_button":"Rail",
+        "morse_button":"Morse",
+        "polibius_button":"Polibius"
     },
 
     "content_frame_buttons": {
